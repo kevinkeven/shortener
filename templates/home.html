@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row p-4 mt-5" style="max-height: 45rem;">
+    <div class="col-md-6" style="padding: 3.3rem;">
+        <h1 class="display-4" style="font-weight: bold;">Short links, big results</h1>
+        <p class="lead text-muted">A URL shortener built with powerful tools to help you grow and protect your brand.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Get Started for Free</a>
+    </div>
+    <div class="col-md-6" style="background-image: url({% static 'imgs/dinos.jpg' %}); background-size: 700px 300px; background-repeat: no-repeat;">        
+    </div>
+</div>
+<div class="d-flex justify-content-center shorten" style="background-color: #0b1736!important;">
+    <div class="mt-5 w-75 p-3 mb-3">
+        <form method="post" class="form-inline mb-3">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-10 my-1">
+                    <input type="text" name="orignalurl" maxlength="600" class="form-control form-control-lg textinput textInput" placeholder="Shorten You Link" required="" id="id_orignalurl">
+                </div>
+                <div class="col-sm-2 my-l">
+                    <input type="submit" name="submit" value="Shorten" class="btn btn-primary btn-lg btn-block shtn" id="submit-id-submit">
+                </div>
+            </div>
+        </form>
+        
+        <p class="text-white terms">By clicking SHORTEN, you are agreeing to Bitoly’s Terms of Service and Privacy Policy</p>
+        {% if shortened_urls %}
+        <ul class="list-group bg-white">
+            {% for short_url in shortened_urls%}
+            <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                {{ short_url.orignalurl|truncatechars:55 }}
+                <div>
+                    <a href="{{ short_url.get_absolute_url }}">{{ short_url.url_path }}</a>
+                    <button class="btn btn-light copi">Copy</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container w-75">
+    <center class="p-5">
+        <h3 class="yego-title">The link shortener that has your brand’s back</h3><br>
+        <p class="yego">Your brand wasn’t built to be hidden. Help it stand out with branded links that drive 34% more clicks.</p>
+    </center>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-0" style="width: 20rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title teco-title">Inspire trust</h5>
+                <p class="card-text teco">With more clicks comes increased brand recognition and consumer trust in your communications—which in turn inspires even more engagement with your links. (It’s a wonderful cycle.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0" style="width: 20rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title teco-title">Gain control</h5>
+                <p class="card-text teco">Take credit for your content and learn more about how it’s consumed by enabling auto-branding—a feature that ensures your brand remains in any link someone shortens pointing to your website.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0" style="width: 20rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title teco-title">Boost results</h5>
+                <p class="card-text teco">On top of better deliverability and click-through, rich link-level data gives you crucial insight into your link engagement so your team can make smarter decisions around its content and communications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
